@@ -25,7 +25,7 @@ def test_first_three(client):
 @pytest.mark.it("Implement method POST /member to add a new member")
 def test_add_implementation(client):
     response = client.post('/member', json={
-		"first_name": "Tommy",
+        "first_name": "Tommy",
         "id": 3443,
 		"age": 23,
 		"lucky_numbers": [34,65,23,4,6]

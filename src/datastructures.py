@@ -42,11 +42,17 @@ class FamilyStructure:
         return randint(0, 99999999)
 
     def get_member(self, id):
-        print(id)
         member = list(filter(lambda sub: sub["id"] in [id], self._members))
+        if len(member) == 0:
+            member.append({"not_found": True})
+            return member
         return member
 
     def add_member(self, member):
+        required_params = {"id", "first_name", "age", "lucky_numbers"}
+        if not member.keys() >= required_params:
+            return {"missing_params": True}
+
         new_member = {
             "id": member["id"],
             "first_name": member["first_name"],
@@ -63,15 +69,10 @@ class FamilyStructure:
                 to_delete = self._members[i]
                 del self._members[i]
                 to_delete["done"] = True
-                print(to_delete)
-                break
-        # to_delete = list(filter(lambda sub: sub['id'] != id, self._members))
-        # print(to_delete)
-        # to_delete[0]["done"] = True
-        print(self._members)
-        return to_delete
+                return to_delete
+        return {"not_found": True}
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
-        # print(self._members)
+        print(self._members)
         return self._members
